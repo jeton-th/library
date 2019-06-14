@@ -15,9 +15,32 @@ function removeBook(book) {
   myLibrary.splice(book, 1)
 }
 
-addBookToLibrary('JK Rowling', 'Harry Potter', 298)
-addBookToLibrary('AUTH', 'TITLE', 248)
+function render() {
+  let list = document.querySelector(".list");
+  myLibrary.forEach(function(e){
+    var row = document.createElement("div");    
+    row.classList.add('row');
 
-removeBook(1)
+    let span = document.createElement("span");
+    span.innerHTML = e['author'];
+    row.appendChild(span);
 
-console.log(myLibrary)
+    span = document.createElement("span");
+    span.innerHTML = e['title'];
+    row.appendChild(span);
+
+    span = document.createElement("span");
+    span.innerHTML = e['numPages'];
+    row.appendChild(span);
+
+    list.appendChild(row);
+  })
+}
+
+function addBook() {
+  const author = document.querySelector("#author").value;
+  const title = document.querySelector("#title").value;
+  const pages = document.querySelector("#pages").value;
+  addBookToLibrary(author, title, pages);
+  render()
+}

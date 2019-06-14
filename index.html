@@ -7,21 +7,39 @@
   <title>Document</title>
 </head>
 <body>
-  <script src='js/main.js'></script>
-
   <button>NEW BOOK</button>
 
-  <form onsubmit="addBookToLibrary(author,title,pages)">
-  Author:<br>
-    <input type="text" name="author">
+  <div class="form">
+    <div>
+      <label for="author">Author</label><br>
+      <input type="text" name="author" id="author">
+    </div>
+
+    <div>
+      <label for="title">Title</label><br>
+      <input type="text" name="title" id="title">
+    </div>
+
+    <div>
+      <label for="pages">Pages</label><br>
+      <input type="text" name="pages" id="pages">
+    </div>
+    
     <br>
-    Title<br>
-    <input type="text" name="title">
-    <br>
-   Pages<br>
-    <input type="text" name="pages">
-    <br><br>
-    <input type="submit" value="Submit">
-  </form>
+    <button onclick="addBook()">Submit</button>
+  </div>
+
+  <div class="library">
+    <h2>My Library</h2>
+    <div class="list">
+      <div class="row">
+        <h3>Author</h3>
+        <h3>Title</h3>
+        <h3>Pages</h3>
+      </div>
+    </div>
+  </div>
+
+  <script src='js/main.js'></script>
 </body>
 </html>
