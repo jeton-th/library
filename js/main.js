@@ -37,6 +37,11 @@ function render() {
   })
 }
 
+function showForm() {
+  let form = document.querySelector('.form');
+  form.classList.toggle('hidden');
+}
+
 function addBook() {
   const author = document.querySelector("#author").value;
   const title = document.querySelector("#title").value;
