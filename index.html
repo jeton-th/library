@@ -10,7 +10,7 @@
 <body>
   <button onclick="showForm()">NEW BOOK</button>
 
-  <div class="form hidden">
+  <form class="form hidden">
     <div>
       <label for="author">Author</label><br>
       <input type="text" name="author" id="author">
@@ -27,8 +27,8 @@
     </div>
     
     <br>
-    <button onclick="addBook()">Submit</button>
-  </div>
+    <input type="button" value="Add" onclick="addBook()">
+  </form>
 
   <div class="library">
     <h2>My Library</h2>
