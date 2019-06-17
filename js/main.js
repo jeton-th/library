@@ -1,28 +1,41 @@
-let myLibrary = [];
+let myLibrary = localStorage.getItem('items')
+  ? JSON.parse(localStorage.getItem('items'))
+  : [];
 
 function Book(author, title, numPages) {
   this.author = author;
   this.title = title;
   this.numPages = numPages;
+  this.read = false;
 }
 
-Book.prototype.read = false;
+Book.prototype.toggle = function() {
+  this.read = !this.read;
+  render();
+};
 
 function addBookToLibrary(author, title, numPages) {
   const newBook = new Book(author, title, numPages);
   myLibrary.push(newBook);
+  localStorage.setItem('items', JSON.stringify(myLibrary));
 }
 
 function removeBook(book) {
   myLibrary.splice(book, 1);
+  localStorage.setItem('items', JSON.stringify(myLibrary));
   render();
 }
+Storage.prototype.getObj = function(key) {
+  return JSON.parse(this.getItem(key));
+};
 
 function render() {
   let list = document.querySelector('.list');
   list.innerHTML = '';
-  // const e = myLibrary[myLibrary.length - 1];
+  // const data = JSON.parse(localStorage.getItem('items'));
+
   myLibrary.forEach(function(e) {
+    // e.__proto__ = Book.prototype;
     var row = document.createElement('div');
     row.classList.add('row');
 
@@ -60,10 +73,9 @@ function render() {
     }
     button2.id = myLibrary[index];
     button2.addEventListener('click', function() {
-      toggleRead(index);
+      Object.getPrototypeOf(e).toggle();
     });
     row.appendChild(button2);
-    //add event listener to the button
     list.appendChild(row);
   });
 }
@@ -81,7 +93,4 @@ function addBook() {
   render();
 }
 
-function toggleRead(index) {
-  myLibrary[index].read = myLibrary[index].read ? false : true;
-  render();
-}
+render();
