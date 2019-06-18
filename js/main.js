@@ -12,7 +12,7 @@ function render() {
   row.classList.add('justify-content-around');
   row.innerHTML = '';
 
-  myLibrary.forEach(book => {
+  myLibrary.forEach((book) => {
     const card = document.createElement('div');
     card.classList.add('card', 'col-md-5', 'mb-3');
 
@@ -39,11 +39,10 @@ function render() {
 
     const button = document.createElement('button');
     button.innerHTML = 'Delete';
+    button.id = 'delete-book';
     button.classList.add('btn', 'btn-danger');
     button.id = index;
-    button.addEventListener('click', () => {
-      removeBook(index);
-    });
+
     cardBody.appendChild(button);
 
     const button2 = document.createElement('button');
@@ -85,8 +84,9 @@ function removeBook(book) {
   render();
 }
 
-render();
-
+document.querySelector('#delete-book').addEventListener('click', () => {
+  removeBook(index);
+});
 
 document.querySelector('#add-book').addEventListener('click', () => {
   const author = document.querySelector('#author');
@@ -98,3 +98,5 @@ document.querySelector('#add-book').addEventListener('click', () => {
   pages.value = '';
   render();
 });
+
+render();
