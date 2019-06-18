@@ -20,10 +20,13 @@ for(let i=0; i<10; i++){
 }
 
 function addBook() {
-  const author = document.querySelector('#author').value;
-  const title = document.querySelector('#title').value;
-  const pages = document.querySelector('#pages').value;
-  addBookToLibrary(author, title, pages);
+  const author = document.querySelector('#author');
+  const title = document.querySelector('#title');
+  const pages = document.querySelector('#pages');
+  addBookToLibrary(author.value, title.value, pages.value);
+  author.value = ""
+  title.value = ""
+  pages.value = ""
   render();
 }
 
@@ -45,7 +48,7 @@ function render() {
 
   myLibrary.forEach(function(e) {
     var card = document.createElement('div');
-    card.classList.add('card', 'col-md-5', 'mb-3', 'bg-primary', 'text-white');
+    card.classList.add('card', 'col-md-5', 'mb-3');
 
     var cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
