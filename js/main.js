@@ -40,11 +40,11 @@ function render() {
     const button = document.createElement('button');
     button.innerHTML = 'Delete';
     button.classList.add('btn', 'btn-danger');
-    button.id = index;
+    button.id = `book-${index}`;
+    cardBody.appendChild(button);
     button.addEventListener('click', () => {
       removeBook(index);
     });
-    cardBody.appendChild(button);
 
     const button2 = document.createElement('button');
     if (myLibrary[index].read) {
@@ -63,7 +63,7 @@ function render() {
 }
 
 Book.prototype = {
-  toggleRead: () => {
+  toggleRead: function () {
     this.read = !this.read;
     render();
   },
@@ -85,9 +85,6 @@ function removeBook(book) {
   render();
 }
 
-render();
-
-
 document.querySelector('#add-book').addEventListener('click', () => {
   const author = document.querySelector('#author');
   const title = document.querySelector('#title');
@@ -98,3 +95,5 @@ document.querySelector('#add-book').addEventListener('click', () => {
   pages.value = '';
   render();
 });
+
+render();
