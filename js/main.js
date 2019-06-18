@@ -14,6 +14,19 @@ Book.prototype = {
   }
 };
 
+for(let i=0; i<10; i++){
+  let book = new Book('Some book title.', 'Unknown Author', 256);
+  myLibrary.push(book);
+}
+
+function addBook() {
+  const author = document.querySelector('#author').value;
+  const title = document.querySelector('#title').value;
+  const pages = document.querySelector('#pages').value;
+  addBookToLibrary(author, title, pages);
+  render();
+}
+
 function addBookToLibrary(author, title, numPages) {
   const newBook = new Book(author, title, numPages);
   myLibrary.push(newBook);
@@ -26,12 +39,13 @@ function removeBook(book) {
 }
 
 function render() {
-  let list = document.querySelector('.list');
-  list.innerHTML = '';
+  let row = document.querySelector('.row');
+  row.classList.add('justify-content-around')
+  row.innerHTML = '';
 
   myLibrary.forEach(function(e) {
     var card = document.createElement('div');
-    card.classList.add('card','m-3','bg-primary');
+    card.classList.add('card', 'col-md-5', 'mb-3', 'bg-primary', 'text-white');
 
     var cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
@@ -75,21 +89,13 @@ function render() {
       e.toggleRead();
     });
     title.appendChild(button2);
-    list.appendChild(card);
+    row.appendChild(card);
   });
 }
 
-function showForm() {
-  let form = document.querySelector('.form');
-  form.classList.toggle('hidden');
-}
-
-function addBook() {
-  const author = document.querySelector('#author').value;
-  const title = document.querySelector('#title').value;
-  const pages = document.querySelector('#pages').value;
-  addBookToLibrary(author, title, pages);
-  render();
-}
-
 render();
+
+// function showForm() {
+//   let form = document.querySelector('.form');
+//   form.classList.toggle('hidden');
+// }
