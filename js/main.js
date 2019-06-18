@@ -12,36 +12,36 @@ function render() {
   row.classList.add('justify-content-around');
   row.innerHTML = '';
 
-  myLibrary.forEach(function(e) {
-    var card = document.createElement('div');
+  myLibrary.forEach(book => {
+    const card = document.createElement('div');
     card.classList.add('card', 'col-md-5', 'mb-3');
 
-    var cardBody = document.createElement('div');
+    const cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
     card.appendChild(cardBody);
 
     const title = document.createElement('h2');
     title.classList.add('card-title');
-    title.innerHTML = e.title;
+    title.innerHTML = book.title;
     cardBody.appendChild(title);
 
     const author = document.createElement('h4');
     author.classList.add('card-subtitle', 'mb-3');
-    author.innerHTML = e.author;
+    author.innerHTML = book.author;
     cardBody.appendChild(author);
 
     const pages = document.createElement('p');
-    pages.innerHTML = 'Number of Pages: ' + e.numPages;
+    pages.innerHTML = `Number of Pages: ${book.numPages}`;
     pages.classList.add('card-text');
     cardBody.appendChild(pages);
 
-    const index = myLibrary.indexOf(e);
+    const index = myLibrary.indexOf(book);
 
     const button = document.createElement('button');
     button.innerHTML = 'Delete';
     button.classList.add('btn', 'btn-danger');
     button.id = index;
-    button.addEventListener('click', function() {
+    button.addEventListener('click', () => {
       removeBook(index);
     });
     cardBody.appendChild(button);
@@ -54,8 +54,8 @@ function render() {
     }
     button2.id = myLibrary[index];
     button2.classList.add('btn', 'btn-light', 'float-right');
-    button2.addEventListener('click', function() {
-      e.toggleRead();
+    button2.addEventListener('click', () => {
+      book.toggleRead();
     });
     title.appendChild(button2);
     row.appendChild(card);
@@ -63,13 +63,13 @@ function render() {
 }
 
 Book.prototype = {
-  toggleRead: function() {
+  toggleRead: () => {
     this.read = !this.read;
     render();
-  }
+  },
 };
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 10; i += 1) {
   const book = new Book('Some book title.', 'Unknown Author', 256);
   myLibrary.push(book);
 }
@@ -80,7 +80,15 @@ function addBookToLibrary(author, title, numPages) {
   render();
 }
 
-function addBook() {
+function removeBook(book) {
+  myLibrary.splice(book, 1);
+  render();
+}
+
+render();
+
+
+document.querySelector('#add-book').addEventListener('click', () => {
   const author = document.querySelector('#author');
   const title = document.querySelector('#title');
   const pages = document.querySelector('#pages');
@@ -89,11 +97,4 @@ function addBook() {
   title.value = '';
   pages.value = '';
   render();
-}
-
-function removeBook(book) {
-  myLibrary.splice(book, 1);
-  render();
-}
-
-render();
+});
