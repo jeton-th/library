@@ -1,6 +1,4 @@
-let myLibrary = localStorage.getItem('items')
-  ? JSON.parse(localStorage.getItem('items'))
-  : [];
+let myLibrary = [];
 
 function Book(author, title, numPages) {
   this.author = author;
@@ -9,61 +7,61 @@ function Book(author, title, numPages) {
   this.read = false;
 }
 
-Book.prototype.toggle = function() {
-  this.read = !this.read;
-  render();
+Book.prototype = {
+  toggleRead: function() {
+    this.read = !this.read;
+    render();
+  }
 };
 
 function addBookToLibrary(author, title, numPages) {
   const newBook = new Book(author, title, numPages);
   myLibrary.push(newBook);
-  localStorage.setItem('items', JSON.stringify(myLibrary));
+  render();
 }
 
 function removeBook(book) {
   myLibrary.splice(book, 1);
-  localStorage.setItem('items', JSON.stringify(myLibrary));
   render();
 }
-Storage.prototype.getObj = function(key) {
-  return JSON.parse(this.getItem(key));
-};
 
 function render() {
   let list = document.querySelector('.list');
   list.innerHTML = '';
-  // const data = JSON.parse(localStorage.getItem('items'));
 
   myLibrary.forEach(function(e) {
-    // e.__proto__ = Book.prototype;
-    var row = document.createElement('div');
-    row.classList.add('row');
+    var card = document.createElement('div');
+    card.classList.add('card','m-3','bg-primary');
 
-    let span = document.createElement('span');
-    span.innerHTML = e['author'];
-    row.appendChild(span);
+    var cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+    card.appendChild(cardBody);
 
-    span = document.createElement('span');
-    span.innerHTML = e['title'];
-    row.appendChild(span);
+    let title = document.createElement('h2');
+    title.classList.add('card-title');
+    title.innerHTML = e['title'];
+    cardBody.appendChild(title);
 
-    span = document.createElement('span');
-    span.innerHTML = e['numPages'];
-    row.appendChild(span);
+    let author = document.createElement('h4');
+    author.classList.add('card-subtitle','mb-3');
+    author.innerHTML = e['author'];
+    cardBody.appendChild(author);
 
-    span = document.createElement('span');
-    span.innerHTML = e['read'];
-    row.appendChild(span);
+    let pages = document.createElement('p');
+    pages.innerHTML = 'Number of Pages: ' + e['numPages'];
+    pages.classList.add('card-text');
+    cardBody.appendChild(pages);
 
     const index = myLibrary.indexOf(e);
 
     button = document.createElement('button');
     button.innerHTML = 'Delete';
+    button.classList.add('btn','btn-danger');
     button.id = index;
     button.addEventListener('click', function() {
       removeBook(index);
     });
-    row.appendChild(button);
+    cardBody.appendChild(button);
 
     button2 = document.createElement('button');
     if (myLibrary[index].read) {
@@ -72,11 +70,12 @@ function render() {
       button2.innerHTML = 'Not Read';
     }
     button2.id = myLibrary[index];
+    button2.classList.add('btn','btn-light','float-right');
     button2.addEventListener('click', function() {
-      Object.getPrototypeOf(e).toggle();
+      e.toggleRead();
     });
-    row.appendChild(button2);
-    list.appendChild(row);
+    title.appendChild(button2);
+    list.appendChild(card);
   });
 }
 
