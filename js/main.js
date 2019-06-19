@@ -12,7 +12,7 @@ function render() {
   row.classList.add('justify-content-around');
   row.innerHTML = '';
 
-  myLibrary.forEach((book) => {
+  myLibrary.forEach(book => {
     const card = document.createElement('div');
     card.classList.add('card', 'col-md-5', 'mb-3');
 
@@ -63,11 +63,9 @@ function render() {
   });
 }
 
-Book.prototype = {
-  toggleRead: function () {
-    this.read = !this.read;
-    render();
-  },
+Book.prototype.toggleRead = function() {
+  this.read = !this.read;
+  render();
 };
 
 for (let i = 0; i < 10; i += 1) {
@@ -78,7 +76,6 @@ for (let i = 0; i < 10; i += 1) {
 function addBookToLibrary(author, title, numPages) {
   const newBook = new Book(author, title, numPages);
   myLibrary.push(newBook);
-  render();
 }
 
 function removeBook(book) {
