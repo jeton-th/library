@@ -7,6 +7,37 @@ function Book(author, title, numPages) {
   this.read = false;
 }
 
+Book.prototype.toggleRead = function() {
+  this.read = !this.read;
+  render();
+};
+
+for (let i = 0; i < 10; i += 1) {
+  const book = new Book('Some book title.', 'Unknown Author', 256);
+  myLibrary.push(book);
+}
+
+function addBookToLibrary(author, title, numPages) {
+  const newBook = new Book(author, title, numPages);
+  myLibrary.push(newBook);
+}
+
+function removeBook(book) {
+  myLibrary.splice(book, 1);
+  render();
+}
+
+document.querySelector('#add-book').addEventListener('click', () => {
+  const author = document.querySelector('#author');
+  const title = document.querySelector('#title');
+  const pages = document.querySelector('#pages');
+  addBookToLibrary(author.value, title.value, pages.value);
+  author.value = '';
+  title.value = '';
+  pages.value = '';
+  render();
+});
+
 function render() {
   const row = document.querySelector('.row');
   row.classList.add('justify-content-around');
@@ -62,36 +93,5 @@ function render() {
     row.appendChild(card);
   });
 }
-
-Book.prototype.toggleRead = function() {
-  this.read = !this.read;
-  render();
-};
-
-for (let i = 0; i < 10; i += 1) {
-  const book = new Book('Some book title.', 'Unknown Author', 256);
-  myLibrary.push(book);
-}
-
-function addBookToLibrary(author, title, numPages) {
-  const newBook = new Book(author, title, numPages);
-  myLibrary.push(newBook);
-}
-
-function removeBook(book) {
-  myLibrary.splice(book, 1);
-  render();
-}
-
-document.querySelector('#add-book').addEventListener('click', () => {
-  const author = document.querySelector('#author');
-  const title = document.querySelector('#title');
-  const pages = document.querySelector('#pages');
-  addBookToLibrary(author.value, title.value, pages.value);
-  author.value = '';
-  title.value = '';
-  pages.value = '';
-  render();
-});
 
 render();
