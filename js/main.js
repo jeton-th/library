@@ -12,7 +12,7 @@ function render() {
   row.classList.add('justify-content-around');
   row.innerHTML = '';
 
-  myLibrary.forEach(book => {
+  myLibrary.forEach((book) => {
     const card = document.createElement('div');
     card.classList.add('card', 'col-md-5', 'mb-3');
 
